@@ -1,0 +1,141 @@
+@page
+@model WebApp.Pages_Bookz.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<form class="form-inline" method="get">
+    <div class="form-group">
+        <!--WARNING! WEIRD BEHAVIOR OF SEARCH!-->
+        <input asp-for="Search" value="@Model.Search" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Search" class="btn btn-primary" />
+        <input type="submit" value="Reset" name ="ToDoActionReset" class="btn btn-secondary" 
+               @(string.IsNullOrWhiteSpace(Model.Search) ? "disabled=\"disabled\"": "") />
+    </div>
+</form>
+<div class="space-on-top-20">
+    @if (!string.IsNullOrWhiteSpace(Model.Search))
+    {
+        <p>Search is active. Search term: @Model.Search</p>
+    }
+    <p>Records: @Model.Books.Count</p>
+    
+</div>
+
+
+
+<div class="row">
+
+
+
+    @foreach (var item in Model.Books)
+    {   <div class="col-l-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    @Html.DisplayFor(modelItem => item.Book.Title)
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Comments: @item.CommentCount <br/>
+                        @Html.DisplayNameFor(model => model.Books[0].Book.Summary)
+                    </p>
+                    <a asp-page="./Edit" asp-route-id="@item.Book.BookId" class="card-link">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Book.BookId" class="card-link">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Book.BookId" class="card-link">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+@* <table class="table"> *@
+@*     <thead> *@
+@*         <tr> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.Book[0].Title) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.Book[0].PublishingYear) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.Book[0].AuthoredYear) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.Book[0].WordCount) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.Book[0].Summary) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.Book[0].Publisher) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.Book[0].Language) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.Book[0].BookAuthors) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.Book[0].Comments) *@
+@*             </th> *@
+@*             <th></th> *@
+@*         </tr> *@
+@*     </thead> *@
+@*     <tbody> *@
+@* @foreach (var item in Model.Book) { *@
+@*         <tr> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.Title) *@
+@*             </td> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.PublishingYear) *@
+@*             </td> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.AuthoredYear) *@
+@*             </td> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.WordCount) *@
+@*             </td> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.Summary) *@
+@*             </td> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.Publisher.PublisherName) *@
+@*             </td> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.Language.LanguageName) *@
+@*             </td> *@
+@*             <td> *@
+@*                 <p>Authors: @item.BookAuthors.Count</p> *@
+@*                 @foreach (var bookAuthor in item.BookAuthors) *@
+@*                 { *@
+@*                     <p>@Html.DisplayFor(modelItem => bookAuthor.Author.FirstLastName)</p> *@
+@*                 } *@
+@*             </td> *@
+@*             <td> *@
+@*                 <p>Comments: @item.Comments.Count</p> *@
+@*                 @foreach (var comment in item.Comments.OrderByDescending(c => c.CommentId).Take(1)) *@
+@*                 { *@
+@*                     <p>@Html.DisplayFor(modelItem => comment.CommentText)</p> *@
+@*                 } *@
+@*                 <a asp-page="/Comment/Index" asp-route-bookid="@item.BookId">Read All</a> *@
+@*             </td> *@
+@* *@
+@*             <td> *@
+@*                 <a asp-page="./Edit" asp-route-id="@item.BookId">Edit</a> | *@
+@*                 <a asp-page="./Details" asp-route-id="@item.BookId">Details</a> | *@
+@*                 <a asp-page="./Delete" asp-route-id="@item.BookId">Delete</a> *@
+@*             </td> *@
+@*         </tr> *@
+@* } *@
+@*     </tbody> *@
+@* </table> *@
